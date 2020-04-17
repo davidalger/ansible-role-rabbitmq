@@ -22,16 +22,17 @@ Controls the RabbitMQ daemon's state and whether it starts at boot.
 
 The RabbitMQ version to install.
 
-    rabbitmq_basename: "rabbitmq-server"
+    erlang_version: "22.3.2"
 
-(RedHat/CentOS only) The RabbitMQ package basename.
-    
-    erlang_yum_repository_url: "https://packagecloud.io/install/repositories/rabbitmq/erlang/config_file.repo?os={{ansible_distribution | lower}}&dist={{ ansible_distribution_major_version }}&source=script"
-    rabbitmq_yum_repository_url: "https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/config_file.repo?os={{ansible_distribution | lower}}&dist={{ansible_distribution_major_version | lower}}&source=script"
-    erlang_yum_repository_path: "/etc/yum.repos.d/rabbitmq_erlang.repo"
-    rabbitmq_yum_repository_path: "/etc/yum.repos.d/rabbitmq_rabbitmq-server.repo"
+The Erlang version to install.
 
-(RedHat/CentOS only) Controls the Package Cloud repositories for RabbitMQ and Erlang latest versions
+    rabbitmq_rpm: "rabbitmq-server-{{ rabbitmq_version }}-1.el{{ ansible_distribution_major_version }}.noarch.rpm"
+    rabbitmq_rpm_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/el/{{ ansible_distribution_major_version }}/{{ rabbitmq_rpm }}/download"
+
+    erlang_rpm: "erlang-{{ erlang_version }}-1.el{{ ansible_distribution_major_version }}.x86_64.rpm"
+    erlang_rpm_url: "https://packagecloud.io/rabbitmq/erlang/packages/el/{{ ansible_distribution_major_version }}/{{ erlang_rpm }}/download"
+
+(RedHat/CentOS only) Controls the .rpm to install.
 
     rabbitmq_deb: "rabbitmq-server_{{ rabbitmq_version }}-1_all.deb"
     rabbitmq_deb_url: "https://packagecloud.io/rabbitmq/rabbitmq-server/packages/{{ ansible_distribution | lower }}/{{ ansible_distribution_release }}/{{ rabbitmq_deb }}/download"

@@ -1,26 +1,25 @@
 ---
-- name: Get packagecloud erlang repository
-  get_url:
-    url: "{{ erlang_yum_repository_url }}"
-    dest: "{{ erlang_yum_repository_path }}"
-    force: yes
-
-- name: Get packagecloud rabbitmq repository
-  get_url:
-    url: "{{ rabbitmq_yum_repository_url }}"
-    dest: "{{ rabbitmq_yum_repository_path }}"
-    force: yes
-
 - name: Add packagecloud GPG key.
   rpm_key:
     key: "https://packagecloud.io/gpg.key"
     state: present
 
+- name: Download Erlang package.
+  get_url:
+    url: "{{ erlang_rpm_url }}"
+    dest: "/tmp/{{ erlang_rpm }}"
+
+- name: Ensure Erlang is installed.
+  yum:
+    name: "/tmp/{{ erlang_rpm }}"
+    state: "present"
+
+- name: Download RabbitMQ package.
+  get_url:
+    url: "{{ rabbitmq_rpm_url }}"
+    dest: "/tmp/{{ rabbitmq_rpm }}"
+
 - name: Ensure RabbitMQ is installed.
   yum:
-    name: "{{ rabbitmq_basename }}-{{ rabbitmq_version }}"
+    name: "/tmp/{{ rabbitmq_rpm }}"
     state: "present"
-    disablerepo: "epel"
-    enablerepo:
-      - rabbitmq_erlang
-      - rabbitmq_rabbitmq-server
