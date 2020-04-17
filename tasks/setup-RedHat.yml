@@ -18,9 +18,9 @@
 
 - name: Ensure RabbitMQ is installed.
   yum:
-    name: "{{rabbitmq_basename}}-{{rabbitmq_version}}"
+    name: "{{ rabbitmq_basename }}-{{ rabbitmq_version }}"
     state: "present"
     disablerepo: "epel"
     enablerepo:
-     - rabbitmq_erlang
-     - rabbitmq_rabbitmq-server
+      - rabbitmq_erlang
+      - rabbitmq_rabbitmq-server
