@@ -18,7 +18,7 @@ Available variables are listed below, along with default values (see `defaults/m
 
 Controls the RabbitMQ daemon's state and whether it starts at boot.
 
-    rabbitmq_version: "3.8.0"
+    rabbitmq_version: "3.8.3"
 
 The RabbitMQ version to install.
 
